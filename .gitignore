@@ -1,0 +1,8 @@
+/_legacy
+/node_modules
+/data
+/dist
+/public/*
+!/public/uploads
+.DS_Store
+.env
