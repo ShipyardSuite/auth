@@ -74,6 +74,18 @@ services:
         networks: 
             - gateway
 
+    user:
+        image: shipyardsuite/user:develop
+        container_name: user
+        expose:
+            - "3005"
+        environment:
+            SERVICE_NAME: user
+            DATABASE_URL: ${DATABASE_URL}
+            SERVICE_PORT: 3005
+        networks: 
+            - gateway
+
     auth:
         build: ./
         container_name: auth

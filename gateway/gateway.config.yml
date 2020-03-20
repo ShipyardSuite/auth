@@ -16,6 +16,9 @@ apiEndpoints:
     dashboard:
         host: localhost
         paths: [ '/dashboard/*', '/dashboard/api/*', '/dashboard/uploads/*', /dashboard/images/*]
+    user:
+        host: localhost
+        paths: [ '/user/*', '/user/api/*', '/user/uploads/*', /user/images/*]
 serviceEndpoints:
     auth:
         url: 'http://auth:3002'
@@ -25,6 +28,8 @@ serviceEndpoints:
         url: 'http://homepage:3001'
     dashboard:
         url: 'http://dashboard:3004'
+    user:
+        url: 'http://user:3005'
 policies:
     - basic-auth
     - cors
@@ -66,4 +71,12 @@ pipelines:
             - proxy:
                 - action:
                     serviceEndpoint: dashboard 
+                    changeOrigin: true
+    user:
+        apiEndpoints:
+            - user
+        policies:
+            - proxy:
+                - action:
+                    serviceEndpoint: user 
                     changeOrigin: true
