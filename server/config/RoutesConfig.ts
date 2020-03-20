@@ -1,6 +1,5 @@
 import express = require('express');
 import mongoose = require('mongoose');
-import newRelic = require('newrelic');
 import * as path from 'path';
 import * as fs from 'fs';
 

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { ExampleComponent } from './../../components/';
+import { setInStorage } from './../../utils/storage';
 
 class Home extends Component {
 	constructor(props) {
@@ -10,6 +10,8 @@ class Home extends Component {
 
 		this.state = {};
 	}
+
+	componentDidMount() {}
 
 	render() {
 		return <div>auth...</div>;

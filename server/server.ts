@@ -1,6 +1,5 @@
 import mongoose = require('mongoose');
 import express = require('express');
-import newRelic = require('newrelic');
 
 import { ExpressConfig } from './config/ExpressConfig';
 import { RoutesConfig } from './config/RoutesConfig';

@@ -1,5 +1,6 @@
 import { Home } from './Home';
-import { NotFound } from './NotFound';
+import { Login } from './Login';
+import { Register } from './Register';
 
-export default { Home, NotFound };
-export { Home, NotFound };
+export default { Home, Login, Register };
+export { Home, Login, Register };

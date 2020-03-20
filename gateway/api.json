@@ -9,16 +9,16 @@
 	},
 	"servers": [
 		{
-			"url": "http://localhost:8080"
+			"url": "http://localhost:8080/auth/api"
 		}
 	],
 	"paths": {
 		"/test": {
 			"get": {
-				"summary": "Details about a user",
+				"summary": "Test API connection",
 				"responses": {
 					"200": {
-						"description": "Details about a user",
+						"description": "Test API connection",
 						"headers": {
 							"x-next": {
 								"description": "A link to the next page of responses",
@@ -30,6 +30,118 @@
 					},
 					"default": {
 						"description": "unexpected error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/login": {
+			"post": {
+				"summary": "Log-in current user",
+				"responses": {
+					"200": {
+						"description": "User login successful",
+						"headers": {
+							"x-next": {
+								"description": "A link to the next page of responses",
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "User login failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/logout": {
+			"get": {
+				"summary": "Log-out current user",
+				"responses": {
+					"200": {
+						"description": "User logout successful",
+						"headers": {
+							"x-next": {
+								"description": "A link to the next page of responses",
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "User logout failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/verify": {
+			"get": {
+				"summary": "Verifying User",
+				"responses": {
+					"200": {
+						"description": "User verification successful",
+						"headers": {
+							"x-next": {
+								"description": "A link to the next page of responses",
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "User verification failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/register": {
+			"post": {
+				"summary": "Register a new User",
+				"responses": {
+					"200": {
+						"description": "User registration successful",
+						"headers": {
+							"x-next": {
+								"description": "A link to the next page of responses",
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "User registration failed",
 						"content": {
 							"application/json": {
 								"schema": {

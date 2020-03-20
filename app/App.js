@@ -2,13 +2,15 @@
 
 import React, { Component } from 'react';
 
+import { Container } from 'semantic-ui-react';
+
 class App extends Component {
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
-		return <div>{this.props.children}</div>;
+		return <Container fluid>{this.props.children}</Container>;
 	}
 }
 
