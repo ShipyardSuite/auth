@@ -16,6 +16,8 @@ services:
         depends_on:
             - notfound
             - auth
+            - homepage
+            - dashboard
         networks:
             - gateway
 
@@ -41,18 +43,42 @@ services:
     notfound:
         image: shipyardsuite/notfound:develop
         container_name: notfound
-        ports:
-            - "3003:3003"
+        expose:
+            - "3003"
         environment:
             SERVICE_PORT: 3003
+        networks: 
+            - gateway
+
+    homepage:
+        image: shipyardsuite/homepage:develop
+        container_name: homepage
+        expose:
+            - "3001"
+        environment:
+            SERVICE_NAME: homepage
+            DATABASE_URL: ${DATABASE_URL}
+            SERVICE_PORT: 3001
+        networks: 
+            - gateway
+
+    dashboard:
+        image: shipyardsuite/dashboard:develop
+        container_name: dashboard
+        expose:
+            - "3004"
+        environment:
+            SERVICE_NAME: dashboard
+            DATABASE_URL: ${DATABASE_URL}
+            SERVICE_PORT: 3004
         networks: 
             - gateway
 
     auth:
         build: ./
         container_name: auth
-        ports:
-            - "${SERVICE_PORT}:${SERVICE_PORT}"
+        expose:
+            - "${SERVICE_PORT}"
         volumes:
             - ./:/usr/src/app
         working_dir: /usr/src/app

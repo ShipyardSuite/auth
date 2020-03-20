@@ -10,11 +10,21 @@ apiEndpoints:
     notfound:
         host: localhost
         paths: [ '/notfound/*' ]
+    homepage:
+        host: localhost
+        paths: [ '/homepage/*', '/homepage/api/*']
+    dashboard:
+        host: localhost
+        paths: [ '/dashboard/*', '/dashboard/api/*']
 serviceEndpoints:
     auth:
-        url: 'http://auth:7000'
+        url: 'http://auth:3002'
     notfound:
         url: 'http://notfound:3003'
+    homepage:
+        url: 'http://homepage:3001'
+    dashboard:
+        url: 'http://dashboard:3004'
 policies:
     - basic-auth
     - cors
@@ -40,4 +50,20 @@ pipelines:
             - proxy:
                 - action:
                     serviceEndpoint: notfound 
+                    changeOrigin: true
+    homepage:
+        apiEndpoints:
+            - homepage
+        policies:
+            - proxy:
+                - action:
+                    serviceEndpoint: homepage 
+                    changeOrigin: true
+    dashboard:
+        apiEndpoints:
+            - dashboard
+        policies:
+            - proxy:
+                - action:
+                    serviceEndpoint: dashboard 
                     changeOrigin: true
