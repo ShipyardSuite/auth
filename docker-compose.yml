@@ -40,6 +40,17 @@ services:
         networks:
             - gateway
 
+    migration:
+        image: shipyardsuite/develop-migration
+        container_name: migration
+        depends_on:
+            - mongo 
+            - auth
+        environment:
+            DATABASE_URL: ${DATABASE_URL}
+        networks:
+            - gateway
+            
     notfound:
         image: shipyardsuite/notfound:develop
         container_name: notfound
