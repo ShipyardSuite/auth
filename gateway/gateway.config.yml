@@ -6,16 +6,16 @@ admin:
 apiEndpoints:
     auth:
         host: localhost
-        paths: [ '/auth/*', '/auth/api/*']
+        paths: [ '/auth/*', '/auth/api/*', '/auth/uploads/*', /auth/images/*]
     notfound:
         host: localhost
-        paths: [ '/notfound/*' ]
+        paths: [ '/notfound/*',  /notfound/images/*]
     homepage:
         host: localhost
-        paths: [ '/homepage/*', '/homepage/api/*']
+        paths: [ '/homepage/*', '/homepage/api/*', '/homepage/uploads/*', /homepage/images/*]
     dashboard:
         host: localhost
-        paths: [ '/dashboard/*', '/dashboard/api/*']
+        paths: [ '/dashboard/*', '/dashboard/api/*', '/dashboard/uploads/*', /dashboard/images/*]
 serviceEndpoints:
     auth:
         url: 'http://auth:3002'
