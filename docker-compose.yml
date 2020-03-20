@@ -15,7 +15,7 @@ services:
             - ./gateway/gateway.config.yml:/usr/src/app/config/gateway.config.yml
         depends_on:
             - notfound
-            - template
+            - auth
         networks:
             - gateway
 
@@ -48,11 +48,11 @@ services:
         networks: 
             - gateway
 
-    template:
+    auth:
         build: ./
-        container_name: template
+        container_name: auth
         ports:
-            - "3000:3000"
+            - "${SERVICE_PORT}:${SERVICE_PORT}"
         volumes:
             - ./:/usr/src/app
         working_dir: /usr/src/app
@@ -62,7 +62,7 @@ services:
         networks:
             - gateway
         environment:
-            SERVICE_NAME: template
+            SERVICE_NAME: ${SERVICE_NAME}
             DATABASE_URL: ${DATABASE_URL}
             SERVICE_PORT: ${SERVICE_PORT}
 

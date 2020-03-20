@@ -1,5 +1,5 @@
-# microservice-template
-Microservice Template for Shipyard GCDN
+# auth
+Shipyard Authentification service
 
 ---
 

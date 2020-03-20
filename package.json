@@ -1,7 +1,7 @@
 {
-	"name": "microservice-template",
+	"name": "auth",
 	"version": "0.1.0",
-	"description": "Microservice Template for Shipyard GCDN",
+	"description": "Shipyard Authentification service",
 	"main": "dist/server.js",
 	"scripts": {
 		"start": "npm run build:prod && npm run start:prod",
@@ -50,10 +50,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/ShipyardSuite/microservice-template.git"
+		"url": "git+https://github.com/ShipyardSuite/auth.git"
 	},
 	"bugs": {
-		"url": "https://github.com/ShipyardSuite/microservice-template/issues"
+		"url": "https://github.com/ShipyardSuite/auth/issues"
 	},
-	"homepage": "https://github.com/ShipyardSuite/microservice-template#readme"
+	"homepage": "https://github.com/ShipyardSuite/auth#readme"
 }

@@ -4,15 +4,15 @@ admin:
     port: 9876
     host: localhost
 apiEndpoints:
-    template:
+    auth:
         host: localhost
-        paths: [ '/template/*', '/template/api/*']
+        paths: [ '/auth/*', '/auth/api/*']
     notfound:
         host: localhost
         paths: [ '/notfound/*' ]
 serviceEndpoints:
-    template:
-        url: 'http://template:3000'
+    auth:
+        url: 'http://auth:7000'
     notfound:
         url: 'http://notfound:3003'
 policies:
@@ -25,13 +25,13 @@ policies:
     - proxy
     - rate-limit
 pipelines:
-    template:
+    auth:
         apiEndpoints:
-            - template
+            - auth
         policies:
             - proxy:
                 - action:
-                    serviceEndpoint: template 
+                    serviceEndpoint: auth 
                     changeOrigin: true
     notfound:
         apiEndpoints:
