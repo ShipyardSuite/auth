@@ -65,68 +65,49 @@ class Register extends Component {
 		const { email, password, passwordValidation, registrationSuccess, signUpError } = this.state;
 
 		return (
-			<Layout>
-				<Grid.Column style={{ maxWidth: 350 }}>
-					<Segment>
-						<Responsive {...Responsive.onlyMobile}>
-							<Segment basic padded>
-								<Image src="shipyard_logo_icon_inverted.png" />
-							</Segment>
-						</Responsive>
-						<Responsive {...Responsive.onlyTablet}>
-							<Segment basic padded>
-								<Image src="shipyard_logo_icon_inverted.png" />
-							</Segment>
-						</Responsive>
-						<Header as="h4">Register a new Account</Header>
-						<Form size="large">
-							<Form.Input
-								fluid
-								icon="user"
-								iconPosition="left"
-								type="email"
-								name="email"
-								value={email}
-								onChange={this.handleInputChange.bind(this)}
-								placeholder="E-mail address"
-							/>
-							<Form.Input
-								fluid
-								icon="user"
-								iconPosition="left"
-								placeholder="Password"
-								type="password"
-								name="password"
-								value={password}
-								onChange={this.handleInputChange.bind(this)}
-							/>
-							<Form.Input
-								fluid
-								icon="user"
-								iconPosition="left"
-								placeholder="Repeat Password"
-								type="password"
-								name="passwordValidation"
-								value={passwordValidation}
-								onChange={this.handleInputChange.bind(this)}
-							/>
-							<Button primary fluid size="large" onClick={this.onSignUp.bind(this)}>
-								Register
-							</Button>
-							<Divider horizontal>Or</Divider>
-							<NavLink to="/auth/login">Login</NavLink> to your Account.
-						</Form>
-					</Segment>
-					{registrationSuccess ? (
-						<Message info>
-							Registration Successful, check your emails.&nbsp;
-							<p>
-								Back to <a href="http://localhost:8080/homepage/">Homepage</a>
-							</p>
-						</Message>
-					) : null}
-					{signUpError ? <Message negative>{signUpError}</Message> : null}
-				</Grid.Column>
+			<Layout
+				title="Register a new Account"
+				optionalLink="/auth/login"
+				optionalLinkTitle="Login"
+				optionalLinkText="to your Account."
+				error={signUpError}
+				success={registrationSuccess}
+			>
+				<Form size="large">
+					<Form.Input
+						fluid
+						icon="user"
+						iconPosition="left"
+						type="email"
+						name="email"
+						value={email}
+						onChange={this.handleInputChange.bind(this)}
+						placeholder="E-mail address"
+					/>
+					<Form.Input
+						fluid
+						icon="user"
+						iconPosition="left"
+						placeholder="Password"
+						type="password"
+						name="password"
+						value={password}
+						onChange={this.handleInputChange.bind(this)}
+					/>
+					<Form.Input
+						fluid
+						icon="user"
+						iconPosition="left"
+						placeholder="Repeat Password"
+						type="password"
+						name="passwordValidation"
+						value={passwordValidation}
+						onChange={this.handleInputChange.bind(this)}
+					/>
+					<Button primary fluid size="large" onClick={this.onSignUp.bind(this)}>
+						Register
+					</Button>
+				</Form>
 			</Layout>
 		);
 	}
