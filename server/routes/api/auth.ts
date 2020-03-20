@@ -174,6 +174,30 @@ module.exports = (app: express.Application) => {
 		);
 	});
 
+	// Get user by Token
+	app.get(`/${serviceName}/api/token`, (req, res, next) => {
+		const { query } = req;
+
+		UserSession.findById(query.id, (err, data: any) => {
+			User.findById(data.userId, (err, user: any) => {
+				if (err) {
+					console.log(err);
+
+					return res.send({
+						success: false
+					});
+				}
+
+				return res.send({
+					success: true,
+					data: {
+						user
+					}
+				});
+			});
+		});
+	});
+
 	// Log-Out current User
 	app.get(`/${serviceName}/api/logout`, (req, res, next) => {
 		const { query } = req;

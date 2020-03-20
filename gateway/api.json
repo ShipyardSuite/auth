@@ -69,6 +69,34 @@
 				}
 			}
 		},
+		"/token": {
+			"get": {
+				"summary": "Get token of current user",
+				"responses": {
+					"200": {
+						"description": "Token succesfully auquired",
+						"headers": {
+							"x-next": {
+								"description": "A link to the next page of responses",
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "Token not auquired",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/logout": {
 			"get": {
 				"summary": "Log-out current user",
