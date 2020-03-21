@@ -46,7 +46,8 @@ class Register extends Component {
 							signUpError: json.message,
 							registrationSuccess: true,
 							email: '',
-							password: ''
+							password: '',
+							passwordValidation: ''
 						});
 					} else {
 						this.setState({
