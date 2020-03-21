@@ -104,37 +104,46 @@ module.exports = (app: express.Application) => {
 					console.log(err);
 					return res.send({
 						success: false,
-						message: 'Error: server error'
+						message: 'Error: server error.'
 					});
 				}
 
-				if (!user.validPassword(password)) {
+				if (!user) {
 					return res.send({
 						success: false,
-						message: 'Error: Invalid'
+						message: 'Error: Username or Password incorrect.'
 					});
-				}
-
-				user.lastLogin = new Date();
-				user.save();
-
-				const userSession = new UserSession();
-				userSession.userId = user._id;
-
-				userSession.save((err, doc) => {
-					if (err) {
-						console.log(err);
+				} else {
+					if (!user.validPassword(password)) {
 						return res.send({
 							success: false,
-							message: 'Error: server error'
+							message: 'Error: Username or Password incorrect.'
 						});
 					}
-					return res.send({
-						success: true,
-						message: 'Valid sign in',
-						token: doc._id
-					});
-				});
+
+					if (user.validPassword(password)) {
+						user.lastLogin = new Date();
+						user.save();
+
+						const userSession = new UserSession();
+						userSession.userId = user._id;
+
+						userSession.save((err, doc) => {
+							if (err) {
+								console.log(err);
+								return res.send({
+									success: false,
+									message: 'Error: server error.'
+								});
+							}
+							return res.send({
+								success: true,
+								message: 'Valid sign in.',
+								token: doc._id
+							});
+						});
+					}
+				}
 			}
 		);
 	});
