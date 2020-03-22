@@ -4,34 +4,11 @@ import express = require('express');
 import mongoose = require('mongoose');
 import SHA256 = require('crypto-js/sha256');
 
-import { Logger } from '@shipyardsuite/logger';
-
 import User, { IUser } from './../../models/User';
 import UserSession from './../../models/UserSession';
 import UserProfile from './../../models/UserProfile';
 
 const serviceName: string = process.env.SERVICE_NAME || 'undefined';
-const logger = new Logger();
-
-const loggerMessage = (type: string, path: string, action: string, user: string = ''): void => {
-	if (type === 'error') {
-		logger.Message.error({ path, action, user }, (message: any) => {
-			console.log(message);
-		});
-	} else if (type === 'info') {
-		logger.Message.info({ path, action, user }, (message: any) => {
-			console.log(message);
-		});
-	} else if (type === 'warning') {
-		logger.Message.warning({ path, action, user }, (message: any) => {
-			console.log(message);
-		});
-	} else if (type === 'debug') {
-		logger.Message.debug({ path, action, user }, (message: any) => {
-			console.log(message);
-		});
-	}
-};
 
 module.exports = (app: express.Application) => {
 	// Register new User
@@ -65,7 +42,6 @@ module.exports = (app: express.Application) => {
 					message: 'Error: Server error'
 				});
 			} else if (previousUsers.length > 0) {
-				loggerMessage('warning', req.route.path, 'Account ' + userEmail + ' already exist');
 				return res.send({
 					success: false,
 					message: 'Error: Account already exist.'
@@ -79,7 +55,6 @@ module.exports = (app: express.Application) => {
 			newUser.profile = new UserProfile();
 
 			newUser.save((err, user) => {
-				loggerMessage('info', req.route.path, 'Account ' + userEmail + ' created');
 				if (err) {
 					return res.send({
 						success: false,
@@ -126,7 +101,6 @@ module.exports = (app: express.Application) => {
 			},
 			(err, user: IUser) => {
 				if (err) {
-					loggerMessage('error', req.route.path, err);
 					return res.send({
 						success: false,
 						message: 'Error: server error.'
@@ -134,14 +108,12 @@ module.exports = (app: express.Application) => {
 				}
 
 				if (!user) {
-					loggerMessage('warning', req.route.path, 'Username not found');
 					return res.send({
 						success: false,
 						message: 'Error: Username or Password incorrect.'
 					});
 				} else {
 					if (!user.validPassword(password)) {
-						loggerMessage('error', req.route.path, 'Username or Password incorrect');
 						return res.send({
 							success: false,
 							message: 'Error: Username or Password incorrect.'
@@ -157,13 +129,12 @@ module.exports = (app: express.Application) => {
 
 						userSession.save((err, doc) => {
 							if (err) {
-								loggerMessage('error', req.route.path, err);
 								return res.send({
 									success: false,
 									message: 'Error: server error.'
 								});
 							}
-							loggerMessage('info', req.route.path, 'User signed in.', user._id);
+
 							return res.send({
 								success: true,
 								message: 'Valid sign in.',
@@ -225,7 +196,6 @@ module.exports = (app: express.Application) => {
 					});
 				}
 
-				loggerMessage('info', req.route.path, 'token verified', user._id);
 				return res.send({
 					success: true,
 					data: {
@@ -261,7 +231,6 @@ module.exports = (app: express.Application) => {
 					});
 				}
 
-				loggerMessage('info', req.route.path, 'user logged out');
 				return res.send({
 					success: true,
 					message: 'Logout successful'

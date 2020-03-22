@@ -70,7 +70,7 @@ class Login extends Component {
 
 		return (
 			<Layout
-				title="Sign in"
+				title="Login"
 				optionalLink="/auth/register"
 				optionalLinkTitle="Register"
 				optionalLinkText="a new Account."
