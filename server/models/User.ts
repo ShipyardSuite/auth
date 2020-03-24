@@ -2,7 +2,7 @@ import mongoose = require('mongoose');
 import Schema = mongoose.Schema;
 import Document = mongoose.Document;
 
-import bcrypt = require('bcrypt');
+import bcrypt = require('bcryptjs');
 
 import UserProfile, { IUserProfile } from './UserProfile';
 

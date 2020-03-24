@@ -567,7 +567,7 @@ var Login = function (_Component) {
 			return _react2.default.createElement(
 				_Layout2.default,
 				{
-					title: 'Sign in',
+					title: 'Login',
 					optionalLink: '/auth/register',
 					optionalLinkTitle: 'Register',
 					optionalLinkText: 'a new Account.',
@@ -715,7 +715,8 @@ var Register = function (_Component) {
 							signUpError: json.message,
 							registrationSuccess: true,
 							email: '',
-							password: ''
+							password: '',
+							passwordValidation: ''
 						});
 					} else {
 						_this2.setState({
