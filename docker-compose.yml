@@ -121,14 +121,17 @@ services:
             - gateway
 
     auth:
-        build: ./
+        build:
+            context: ./
+            dockerfile: Dockerfile
         container_name: auth
         expose:
             - "${SERVICE_PORT}"
         volumes:
             - ./:/usr/src/app
         working_dir: /usr/src/app
-        command: sh -c 'npm install; npm install bcrypt; npm run start:dev'
+        #command: sh -c 'npm install; npm install bcrypt; npm run start:dev'
+        command: sh -c 'npm run start:dev'
         depends_on:
             - redis
             - mongo
@@ -136,7 +139,6 @@ services:
             - gateway
         environment:
             NODE_ENV: development
-            REDIS_URL: redis
             SERVICE_NAME: ${SERVICE_NAME}
             DATABASE_URL: ${DATABASE_URL}
             SERVICE_PORT: ${SERVICE_PORT}
