@@ -47,7 +47,7 @@ class Login extends Component {
 						if (json.success) {
 							setInStorage('botany-bay', { token: json.token });
 
-							window.location.replace('http://localhost:8080/dashboard/');
+							window.location.replace(`http://${window.location.host}/dashboard/`);
 
 							this.setState({
 								loginError: '',
