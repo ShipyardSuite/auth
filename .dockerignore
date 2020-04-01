@@ -1,6 +1,7 @@
+/_legacy
 /node_modules
+/docs
 /data
-/dist
 /gateway
 .DS_Store
 docker-compose.yml

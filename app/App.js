@@ -1,17 +1,19 @@
-'use strict';
+import React from 'react';
 
-import React, { Component } from 'react';
-
-import { Container } from 'semantic-ui-react';
-
-class App extends Component {
-	constructor(props) {
-		super(props);
+/**
+ * Default class for react Application
+ * @class App
+ */
+export default class App extends React.Component {
+	componentDidMount() {
+		document.title = 'Page Title';
 	}
 
+	/**
+	 * Renders the current react component.
+	 * @method render
+	 */
 	render() {
-		return <Container fluid>{this.props.children}</Container>;
+		return <div>{this.props.children}</div>;
 	}
 }
-
-export default App;
