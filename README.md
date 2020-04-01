@@ -1,6 +1,12 @@
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/shipyardsuite/auth/develop?color=3cafe2&style=flat-square)
+![Docker Image Version (latest by date)](https://img.shields.io/docker/v/shipyardsuite/auth?color=3cafe2&sort=date&style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/shipyardsuite/auth?color=3cafe2&style=flat-square)
+![Maintenance](https://img.shields.io/maintenance/yes/2020?color=3cafe2&style=flat-square)
+![GitHub](https://img.shields.io/github/license/shipyardsuite/auth?color=3cafe2&style=flat-square)
+
 # auth
 
-Shipyard Microservice
+Shipyard Authentification service
 
 ---
 
@@ -18,7 +24,6 @@ Shipyard Microservice
 | ---- | ----------------| ------------------------------------------- | ------------------- | --------------------- | ------------------------------------------------------- |
 | GET  | `/api/status`   |                                             |                     | **online**: `boolean` | Testing service connection.                             |
 | POST | `/api/login`    | `email`: **String**, `password`: **String** |                     |                       | Login user and return a user-session token.             |
-| GET  | `/api/logout`   |                                             | **token**: `String` |                       | Logout user and delete the users session.               |
 | GET  | `/api/verify`   |                                             | **token**: `String` |                       | Verify a user by checking if the given token exist.     |
 | GET  | `/api/token`    |                                             | **token**: `String` |                       | Verify a user by checking if the given token can login. |
 | POST | `/api/register` | `email`: **String**, `password`: **String** |                     |                       | Register a new user and return the registered email.    |

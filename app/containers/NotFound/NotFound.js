@@ -4,7 +4,7 @@ import React from 'react';
  * Default class for react Application
  * @class App
  */
-export default class App extends React.Component {
+export default class NotFound extends React.Component {
 	componentDidMount() {
 		document.title = 'Page Title';
 	}
@@ -14,6 +14,6 @@ export default class App extends React.Component {
 	 * @method render
 	 */
 	render() {
-		return <div>{this.props.children}</div>;
+		return <div>Not found...</div>;
 	}
 }
