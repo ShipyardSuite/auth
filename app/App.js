@@ -5,9 +5,7 @@ import React from 'react';
  * @class App
  */
 export default class App extends React.Component {
-	componentDidMount() {
-		document.title = 'Page Title';
-	}
+	componentDidMount() {}
 
 	/**
 	 * Renders the current react component.

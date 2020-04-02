@@ -3,6 +3,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const mongoose = require('mongoose');
 
 /**
  * Main application class.
@@ -14,6 +15,7 @@ class App {
 		this.app = express();
 		this.serviceName = process.env.SERVICE_NAME || 'default';
 		this.servicePort = process.env.SERVICE_PORT || 3000;
+		this.datebase = process.env.DATABASE_URL || 'mongodb://mongo:27017/db';
 	}
 
 	/**
@@ -22,6 +24,7 @@ class App {
 	 */
 	init() {
 		this.config();
+		this.initDB();
 		this.apiRoutes();
 		this.reactRoutes();
 		this.start();
@@ -33,9 +36,25 @@ class App {
 	 */
 	config() {
 		this.app.use(`/${this.serviceName}/public`, require('express').static(require('path').join('public')));
-		// this.app.use('/uploads', require('express').static(require('path').join('uploads')));
 		this.app.use(require('express').urlencoded({ extended: true }));
 		this.app.use(require('express').json());
+	}
+
+	/**
+	 * @todo Database initializer
+	 * @body Add this method to all Database connected services
+	 */
+	/**
+	 * Initialize Database
+	 * @method initDB
+	 */
+	initDB() {
+		mongoose.connect(this.datebase, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+			useFindAndModify: false
+		});
+		mongoose.Promise = global.Promise;
 	}
 
 	/**
@@ -47,6 +66,14 @@ class App {
 			if (allRoutes.length > 0) {
 				require(`./api/${file.substr(0, file.indexOf('.'))}`)(this.app, this.serviceName);
 			}
+		});
+
+		/**
+	 	 * @todo Route catcher
+	 	 * @body Add catcher for invalid api routes to all API services
+	 	*/
+		this.app.get(`/${this.serviceName}/api/*`, (req, res) => {
+			res.json({ success: false, message: 'Invalid API endpoint' });
 		});
 	}
 
