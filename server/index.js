@@ -48,6 +48,15 @@ class App {
 				require(`./api/${file.substr(0, file.indexOf('.'))}`)(this.app, this.serviceName);
 			}
 		});
+
+		/**
+		 * @todo Implement catcher for invalid api routes
+		 * @body Add this to every service.
+		 */
+		// catch invalid api routes.
+		this.app.get(`/${this.serviceName}/api/*`, (req, res) => {
+			res.json({ success: false, message: 'Api endpoint not found' });
+		});
 	}
 
 	/**
