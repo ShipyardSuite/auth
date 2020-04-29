@@ -1,20 +1,9 @@
-module.exports = {
-	files: {
-		javascripts: {
-			joinTo: {
-				'vendor.js': /^(?!app)/,
-				'app.js': /^app/
-			}
-		},
-		stylesheets: { joinTo: 'app.css' }
-	},
-	paths: {
-		public: `public/${process.env.SERVICE_NAME}`
-	},
-	plugins: {
-		babel: {
-			presets: [ 'latest', 'react' ]
-		},
-		autoReload: { enabled: true }
-	}
+exports.files = {
+	javascripts: { joinTo: 'app.js' },
+	stylesheets: { joinTo: 'app.css' }
+};
+
+exports.plugins = {
+	babel: { presets: [ 'latest', 'react' ] },
+	autoReload: { enabled: true }
 };

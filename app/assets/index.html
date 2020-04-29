@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>shipyard</title>
+        <title>Loading...</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <link
@@ -12,15 +12,12 @@
             rel="stylesheet"
             href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
         />
-        <link rel="stylesheet" href="/auth/app.css" />
+        <link rel="stylesheet" href="./public/app.css">
     </head>
     <body>
-        <div id="root"></div>
+        <div id="app"></div>
 
-        <script src="/auth/vendor.js"></script>
-        <script src="/auth/app.js"></script>
-        <script>
-            require("initialize");
-        </script>
+        <script src="./public/app.js"></script>
+        <script>require('initialize');</script>
     </body>
 </html>

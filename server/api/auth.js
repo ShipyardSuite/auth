@@ -126,11 +126,13 @@ module.exports = (app, logger, serviceName) => {
 					userSession.save((err, session) => {
 						if (err) {
 							logger.error(err);
+
 							return res.json({
 								success: false,
 								message: 'Error: server error'
 							});
 						}
+
 						logger.info(`User ${user.email} logged in`);
 						return res.json({
 							success: true,
@@ -237,6 +239,7 @@ module.exports = (app, logger, serviceName) => {
 				}
 
 				logger.info(`Log-out succesful`);
+				develop;
 				return res.send({
 					success: true,
 					message: 'Logout successful'

@@ -1,12 +1,15 @@
-import { withRouter, NavLink, Link } from 'react-router-dom';
-import React, { Component } from 'react';
+'use strict';
 
-import { setInStorage } from './../../utils/storage';
+import React from 'react';
 
-import { Grid, Segment, Image, Header, Form, Button, Divider, Responsive, Message } from 'semantic-ui-react';
-import Layout from '../../components/Layout/Layout';
+import { Button, Form } from 'semantic-ui-react';
 
-class Register extends Component {
+import { Layout } from './../../components';
+
+/**
+ * @class Register
+ */
+export default class Register extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -17,6 +20,10 @@ class Register extends Component {
 			password: '',
 			passwordValidation: ''
 		};
+	}
+
+	componentDidMount() {
+		document.title = 'Register';
 	}
 
 	handleInputChange(e) {
@@ -62,6 +69,10 @@ class Register extends Component {
 		}
 	}
 
+	/**
+	 * Renders the current react component.
+	 * @method render
+	 */
 	render() {
 		const { email, password, passwordValidation, registrationSuccess, signUpError } = this.state;
 
@@ -113,5 +124,3 @@ class Register extends Component {
 		);
 	}
 }
-
-export default withRouter(Register);

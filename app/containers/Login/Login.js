@@ -1,12 +1,17 @@
-import { withRouter, NavLink } from 'react-router-dom';
-import React, { Component } from 'react';
+'use strict';
+
+import React from 'react';
+
+import { Button, Form } from 'semantic-ui-react';
 
 import { setInStorage } from './../../utils/storage';
 
-import { Grid, Segment, Image, Header, Form, Button, Divider, Responsive, Message } from 'semantic-ui-react';
-import Layout from '../../components/Layout/Layout';
+import { Layout } from './../../components';
 
-class Login extends Component {
+/**
+ * @class Login
+ */
+export default class Login extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -16,6 +21,10 @@ class Login extends Component {
 			email: '',
 			password: ''
 		};
+	}
+
+	componentDidMount() {
+		document.title = 'Login';
 	}
 
 	handleInputChange(e) {
@@ -47,7 +56,7 @@ class Login extends Component {
 						if (json.success) {
 							setInStorage('botany-bay', { token: json.token });
 
-							window.location.replace('http://localhost:8080/dashboard/');
+							window.location.replace(`http://${window.location.host}/dashboard/`);
 
 							this.setState({
 								loginError: '',
@@ -70,7 +79,7 @@ class Login extends Component {
 
 		return (
 			<Layout
-				title="Sign in"
+				title="Login"
 				optionalLink="/auth/register"
 				optionalLinkTitle="Register"
 				optionalLinkText="a new Account."
@@ -105,5 +114,3 @@ class Login extends Component {
 		);
 	}
 }
-
-export default withRouter(Login);

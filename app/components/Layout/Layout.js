@@ -9,7 +9,7 @@ class Layout extends Component {
 			<Message info>
 				Registration Successful, check your emails.&nbsp;
 				<p>
-					Back to <a href="http://localhost:8080/homepage/">Homepage</a>
+					Back to <a href="http://localhost:8080/">Homepage</a>
 				</p>
 			</Message>
 		);
@@ -24,7 +24,7 @@ class Layout extends Component {
 					<Grid.Column width={8} color="black" only="computer">
 						<Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
 							<Grid.Column style={{ maxWidth: 350 }}>
-								<Image src="/auth/shipyard_logo_full.png" />
+								<Image src="./public/images/shipyard_logo_full.png" />
 							</Grid.Column>
 						</Grid>
 					</Grid.Column>
@@ -34,12 +34,12 @@ class Layout extends Component {
 								<Segment raised>
 									<Responsive {...Responsive.onlyMobile}>
 										<Segment basic padded>
-											<Image src="/auth/shipyard_logo_icon_inverted.png" />
+											<Image src="./public/images/shipyard_logo_icon_inverted.png" />
 										</Segment>
 									</Responsive>
 									<Responsive {...Responsive.onlyTablet}>
 										<Segment basic padded>
-											<Image src="/auth/shipyard_logo_icon_inverted.png" />
+											<Image src="./public/images/shipyard_logo_icon_inverted.png" />
 										</Segment>
 									</Responsive>
 									<Header as="h4">{title}</Header>
