@@ -239,7 +239,6 @@ module.exports = (app, logger, serviceName) => {
 				}
 
 				logger.info(`Log-out succesful`);
-				develop;
 				return res.send({
 					success: true,
 					message: 'Logout successful'
