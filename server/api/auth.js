@@ -1,10 +1,8 @@
 'use strict';
 
-var cryptoJS = require('crypto-js');
-
 const { User, UserSession } = require('./../models');
 
-module.exports = (app, serviceName) => {
+module.exports = (app, logger, serviceName) => {
 	// Register new User
 	app.post(`/${serviceName}/api/register`, (req, res) => {
 		const { body } = req;
@@ -13,14 +11,14 @@ module.exports = (app, serviceName) => {
 		let userEmail = email;
 
 		if (!userEmail) {
-			return res.send({
+			return res.json({
 				success: false,
 				message: 'Error: Email cannot be blank.'
 			});
 		}
 
 		if (!password) {
-			return res.send({
+			return res.json({
 				success: false,
 				message: 'Error: Password cannot be blank.'
 			});
@@ -31,12 +29,16 @@ module.exports = (app, serviceName) => {
 
 		User.find({ email: userEmail }, (err, previousUsers) => {
 			if (err) {
-				return res.send({
+				logger.error(err);
+
+				return res.json({
 					success: false,
 					message: 'Error: Server error'
 				});
 			} else if (previousUsers.length > 0) {
-				return res.send({
+				logger.error(`Account already exist for email ${userEmail}`);
+
+				return res.json({
 					success: false,
 					message: 'Error: Account already exist.'
 				});
@@ -50,12 +52,17 @@ module.exports = (app, serviceName) => {
 
 			newUser.save((err, user) => {
 				if (err) {
-					return res.send({
+					logger.error(err);
+					return res.json({
 						success: false,
 						message: err.message
 					});
 				}
-				return res.send({
+
+				res.status(200);
+
+				logger.info(`Account created for email ${userEmail}`, { status: res.statusCode });
+				return res.json({
 					success: true,
 					data: {
 						email: userEmail
@@ -73,14 +80,14 @@ module.exports = (app, serviceName) => {
 		let userEmail = email;
 
 		if (!userEmail) {
-			return res.send({
+			return res.json({
 				success: false,
 				message: 'Error: Email cannot be blank.'
 			});
 		}
 
 		if (!password) {
-			return res.send({
+			return res.json({
 				success: false,
 				message: 'Error: Password cannot be blank.'
 			});
@@ -95,8 +102,8 @@ module.exports = (app, serviceName) => {
 			},
 			(err, user) => {
 				if (err) {
-					console.log(err);
-					return res.send({
+					logger.error(err);
+					return res.json({
 						success: false,
 						message: 'Error: server error'
 					});
@@ -104,7 +111,7 @@ module.exports = (app, serviceName) => {
 
 				if (user) {
 					if (!user.validPassword(password)) {
-						return res.send({
+						return res.json({
 							success: false,
 							message: 'Error: Invalid'
 						});
@@ -118,20 +125,24 @@ module.exports = (app, serviceName) => {
 
 					userSession.save((err, session) => {
 						if (err) {
-							console.log(err);
-							return res.send({
+							logger.error(err);
+
+							return res.json({
 								success: false,
 								message: 'Error: server error'
 							});
 						}
-						return res.send({
+
+						logger.info(`User ${user.email} logged in`);
+						return res.json({
 							success: true,
 							message: 'Valid sign in',
 							token: session._id
 						});
 					});
 				} else {
-					return res.send({
+					logger.error(`Unsuccessful login attempt for user ${user.email}`);
+					return res.json({
 						success: false,
 						message: 'User/Password combination does not exist'
 					});
@@ -152,21 +163,23 @@ module.exports = (app, serviceName) => {
 			},
 			(err, sessions) => {
 				if (err) {
-					console.log(err);
+					logger.error(err);
 
-					return res.send({
+					return res.json({
 						success: false,
 						message: 'Error: Server error'
 					});
 				}
 
 				if (sessions.length != 1) {
-					return res.send({
+					logger.error(`Invalid session`);
+					return res.json({
 						success: false,
 						message: 'Error: Invalid'
 					});
 				} else {
-					return res.send({
+					logger.info('User verified successfully');
+					return res.json({
 						success: true,
 						message: 'Verification successful'
 					});
@@ -183,14 +196,14 @@ module.exports = (app, serviceName) => {
 		UserSession.findById(token, (err, data) => {
 			User.findById(data.userId, (err, user) => {
 				if (err) {
-					console.log(err);
+					logger.error(err);
 
-					return res.send({
+					return res.json({
 						success: false
 					});
 				}
 
-				return res.send({
+				return res.json({
 					success: true,
 					data: {
 						user
@@ -217,7 +230,7 @@ module.exports = (app, serviceName) => {
 			},
 			(err, session) => {
 				if (err) {
-					console.log(err);
+					logger.error(err);
 
 					return res.send({
 						success: false,
@@ -225,6 +238,7 @@ module.exports = (app, serviceName) => {
 					});
 				}
 
+				logger.info(`Log-out succesful`);
 				return res.send({
 					success: true,
 					message: 'Logout successful'
