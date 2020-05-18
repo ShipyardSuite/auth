@@ -103,53 +103,109 @@ module.exports = (app, logger, serviceName) => {
 			(err, user) => {
 				if (err) {
 					logger.error(err);
-					return res.json({
+					return res.send({
 						success: false,
-						message: 'Error: server error'
+						message: 'Error: server error.'
 					});
 				}
 
-				if (user) {
+				if (!user) {
+					return res.send({
+						success: false,
+						message: 'Error: Username or Password incorrect.'
+					});
+				} else {
 					if (!user.validPassword(password)) {
-						return res.json({
+						logger.error(`Unsuccessful login attempt for user ${user.email}`);
+						return res.send({
 							success: false,
-							message: 'Error: Invalid'
+							message: 'Error: Username or Password incorrect.'
 						});
 					}
 
-					user.lastLogin = new Date();
-					user.save();
+					if (user.validPassword(password)) {
+						user.lastLogin = new Date();
+						user.save();
 
-					const userSession = new UserSession();
-					userSession.userId = user._id;
+						const userSession = new UserSession();
+						userSession.userId = user._id;
 
-					userSession.save((err, session) => {
-						if (err) {
-							logger.error(err);
+						userSession.save((err, doc) => {
+							if (err) {
+								logger.error(err);
+								return res.send({
+									success: false,
+									message: 'Error: server error.'
+								});
+							}
 
-							return res.json({
-								success: false,
-								message: 'Error: server error'
+							logger.info(`User ${user.email} logged in`);
+							return res.send({
+								success: true,
+								message: 'Valid sign in.',
+								token: doc._id
 							});
-						}
-
-						logger.info(`User ${user.email} logged in`);
-						return res.json({
-							success: true,
-							message: 'Valid sign in',
-							token: session._id
 						});
-					});
-				} else {
-					logger.error(`Unsuccessful login attempt for user ${user.email}`);
-					return res.json({
-						success: false,
-						message: 'User/Password combination does not exist'
-					});
+					}
 				}
 			}
 		);
 	});
+
+	// 	User.findOne(
+	// 		{
+	// 			email: email
+	// 		},
+	// 		(err, user) => {
+	// 			if (err) {
+	// 				logger.error(err);
+	// 				return res.json({
+	// 					success: false,
+	// 					message: 'Error: server error'
+	// 				});
+	// 			}
+
+	// 			if (user) {
+	// 				if (!user.validPassword(password)) {
+	// 					return res.json({
+	// 						success: false,
+	// 						message: 'Error: Username or Password incorrect.'
+	// 					});
+	// 				}
+
+	// 				user.lastLogin = new Date();
+	// 				user.save();
+
+	// 				const userSession = new UserSession();
+	// 				userSession.userId = user._id;
+
+	// 				userSession.save((err, session) => {
+	// 					if (err) {
+	// 						logger.error(err);
+
+	// 						return res.json({
+	// 							success: false,
+	// 							message: 'Error: server error'
+	// 						});
+	// 					}
+
+	// 					logger.info(`User ${user.email} logged in`);
+	// 					return res.json({
+	// 						success: true,
+	// 						message: 'Valid sign in',
+	// 						token: session._id
+	// 					});
+	// 				});
+	// 			} else {
+	// 				logger.error(`Unsuccessful login attempt for user ${user.email}`);
+	// 				return res.json({
+	// 					success: false,
+	// 					message: 'User/Password combination does not exist'
+	// 				});
+	// 			}
+	// 		}
+	// 	);
+	// });
 
 	// Verify User
 	app.get(`/${serviceName}/api/verify`, (req, res) => {
