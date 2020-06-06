@@ -1,0 +1,8 @@
+{
+    "verbose": false,
+    "watch": [
+        "./src/server/*",
+        "./src/client/*"
+    ],
+    "exec": "npm run build && node ./dist/server/bundle.js"
+}
