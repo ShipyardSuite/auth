@@ -120,7 +120,7 @@ export default class Register extends React.Component
                         value={passwordValidation}
                         onChange={this.handleInputChange.bind(this)}
                     />
-                    <Button primary fluid size="large" onClick={this.onSignUp.bind(this)}>
+                    <Button positive fluid size="large" onClick={this.onSignUp.bind(this)}>
                         {this.i18nManager.message('register.form.button')}
                     </Button>
                 </Form>
