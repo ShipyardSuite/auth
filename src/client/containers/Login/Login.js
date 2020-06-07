@@ -114,7 +114,7 @@ export default class Login extends React.Component
                         value={password}
                         onChange={this.handleInputChange.bind(this)}
                     />
-                    <Button primary fluid size="large" onClick={this.onLogin.bind(this)}>
+                    <Button positive fluid size="large" onClick={this.onLogin.bind(this)}>
                         {this.i18nManager.message('login.form.button')}
                     </Button>
                 </Form>
